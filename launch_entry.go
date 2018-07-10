@@ -61,12 +61,6 @@ func NewEntryFromDesktopFile(filepath string) (le *LaunchEntry, err error) {
 	if section.Bool("NoDisplay") {
 		return nil, errors.New("desktop entry not displayed")
 	}
-	if section.Has("OnlyShowIn") && !strings.Contains(section.Str("OnlyShowIn"), CurrentDesktop) {
-		return nil, errors.New("desktop entry is hidden on current desktop")
-	}
-	if section.Has("NotShowIn") && strings.Contains(section.Str("NotShowIn"), CurrentDesktop) {
-		return nil, errors.New("desktop entry is hidden on current desktop")
-	}
 
 	le = &LaunchEntry{Type: ApplicatioEntry}
 	le.Name = section.Str("Name")
